@@ -30,10 +30,8 @@ const StatisticLine = (props) => {
 
 const Statistics = (props) => {
   const all = props.good + props.neutral + props.bad
-  const avg = (props.good - props.bad) / all
-  const pos = props.good / all * 100
-  const fixedAvg = avg.toFixed(1)
-  const fixedPos = pos.toFixed(1)
+  const avg = ((props.good - props.bad) / all).toFixed(1)
+  const pos = (props.good / all * 100).toFixed(1)
 
   if(all === 0) {
     return (
@@ -59,10 +57,10 @@ const Statistics = (props) => {
           <StatisticLine text="all" value={all} />
         </tr>
         <tr>
-          <StatisticLine text="average" value={fixedAvg} />
+          <StatisticLine text="average" value={avg} />
         </tr>
         <tr>
-          <StatisticLine text="positive" value={fixedPos} />
+          <StatisticLine text="positive" value={pos} />
         </tr>
       </tbody>
     </table>
