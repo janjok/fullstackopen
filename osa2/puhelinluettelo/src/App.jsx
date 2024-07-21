@@ -33,7 +33,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <div>
-        {persons.map(p => <p>{p.name}</p>)}
+        {persons.map(p => <p key={p.name}>{p.name}</p>)}
       </div>
     </div>
   )
