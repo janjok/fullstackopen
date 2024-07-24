@@ -11,7 +11,10 @@ const Persons = (props) => {
 
     return (
         <div>
-            {props.personObj.map(p => <p key={p.name}>{p.name} {p.number}</p>)}
+            {props.personObj
+                .map(p => 
+                <p key={p.name}>{p.name} {p.number} 
+                <button onClick={() => props.onClick(p.name, p.id)}>delete</button></p>)}
         </div>
     )
 }

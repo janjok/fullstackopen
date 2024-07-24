@@ -37,6 +37,14 @@ const App = () => {
     }
   }
 
+  const deletePerson = (name, id) => {
+    if(confirm(`Delete ${name}?`)) {
+      personServices
+        .destroyPerson(id)
+      setPersons(persons.filter((p) => p.id !== id))
+    }
+  }
+
   const handleNameAdd = (event) => setNewName(event.target.value)
   const handleNumberAdd = (event) => setNewNumber(event.target.value)
   const handleFilterName = (event) => setFilterName(event.target.value)
@@ -50,7 +58,8 @@ const App = () => {
       name={newName} onName={handleNameAdd}
       number={newNumber} onNumber={handleNumberAdd}/>
       <h3>Numbers</h3>
-      <Persons personObj={persons} filter={filterName}/>
+      <Persons personObj={persons} filter={filterName}
+      onClick={deletePerson}/>
     </div>
   )
 
