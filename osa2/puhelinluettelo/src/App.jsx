@@ -3,12 +3,14 @@ import personServices from './services/persons'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState("")
   const [newNumber, setNewNumber] = useState("")
   const [filterName, setFilterName] = useState("")
+  const [note, setNote] = useState(null)
 
   useEffect(() => {
     personServices
@@ -36,6 +38,12 @@ const App = () => {
               setNewName("")
               setNewNumber("")
             })
+            setNote(
+              `Changed number for ${inList.name}`
+            )
+            setTimeout(() => {
+              setNote(null)
+            }, 5000)
         }
     } else if (persons.some(p => p.name === newName)){
         alert(`${newName} is aleady added to phonebook`)
@@ -49,6 +57,12 @@ const App = () => {
           setNewName("")
           setNewNumber("")
         })
+        setNote(
+          `Added ${personObject.name}`
+        )
+        setTimeout(() => {
+          setNote(null)
+        }, 5000)
     }
   }
 
@@ -58,6 +72,12 @@ const App = () => {
         .destroyPerson(id)
       setPersons(persons.filter((p) => p.id !== id))
     }
+    setNote(
+      `Deleted ${name}`
+    )
+    setTimeout(() => {
+      setNote(null)
+    }, 5000)
   }
 
   const handleNameAdd = (event) => setNewName(event.target.value)
@@ -67,6 +87,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={note}/>
       <Filter value={filterName} onChange={handleFilterName}/>
       <h3>add a new</h3>
       <PersonForm onSubmit={addName}
