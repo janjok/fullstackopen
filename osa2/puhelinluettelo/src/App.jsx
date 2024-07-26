@@ -20,6 +20,12 @@ const App = () => {
       })
   }, [])
 
+  const noteToNull = () => {
+    setTimeout(() => {
+      setNote(null)
+    }, 5000)
+  }
+
   const addName = (event) => {
     event.preventDefault()
     const personObject = {
@@ -37,13 +43,17 @@ const App = () => {
               setPersons(persons.map(p => p.id !== inList.id ? p : response))
               setNewName("")
               setNewNumber("")
+              setNote(
+                `Changed number for ${inList.name}`
+              )
+              noteToNull()
             })
-            setNote(
-              `Changed number for ${inList.name}`
-            )
-            setTimeout(() => {
-              setNote(null)
-            }, 5000)
+            .catch(error => {
+              setNote(
+                `Information of ${inList.name} has already been removed from server`
+              )
+              setPersons(persons.filter(p => p.id !== inList.id))
+            })
         }
     } else if (persons.some(p => p.name === newName)){
         alert(`${newName} is aleady added to phonebook`)
@@ -60,9 +70,7 @@ const App = () => {
         setNote(
           `Added ${personObject.name}`
         )
-        setTimeout(() => {
-          setNote(null)
-        }, 5000)
+        noteToNull()
     }
   }
 
@@ -75,9 +83,7 @@ const App = () => {
     setNote(
       `Deleted ${name}`
     )
-    setTimeout(() => {
-      setNote(null)
-    }, 5000)
+    noteToNull()
   }
 
   const handleNameAdd = (event) => setNewName(event.target.value)

@@ -5,10 +5,10 @@ const Notification = ({ message }) => {
         return null
     }
 
-
+    const m = message[0]
 
     return (
-        <div className={message[0] === "D" ? "errorRed" : "error"}>
+        <div className={m === "D" || m === "I" ? "errorRed" : "error"}>
             {message}
         </div>
     )
