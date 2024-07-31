@@ -17,10 +17,11 @@ function App() {
       })
   }, [])
 
+
   return (
     <div>
       <Search value={inputValue} onChange={handleInputChange}/>
-      <Results data={results} countries={inputValue}/>
+      <Results data={results} countries={inputValue} onClick={setInputValue}/>
     </div>
   )
 }

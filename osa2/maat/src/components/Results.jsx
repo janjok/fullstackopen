@@ -3,6 +3,10 @@ const Results = (props) => {
     const cl = props.data.filter((d) => d.name.common.toLowerCase()
         .includes(props.countries.toLowerCase()))
 
+    const onClickHandler = (country) => {
+        props.onClick(country)
+    }
+
     if(cl.length == 1){
 
         return (
@@ -27,7 +31,9 @@ const Results = (props) => {
     return (
         <div>
             <ul>
-                {cl.map(c => <li key={c.name.common}>{c.name.common}</li>)}
+                {cl.map(c => 
+                <li key={c.name.common}>{c.name.common}
+                <button onClick={() => onClickHandler(c.name.common)}>show</button></li>)}
             </ul>
         </div>
     )
