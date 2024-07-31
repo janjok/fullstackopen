@@ -8,7 +8,7 @@ const Notification = ({ message }) => {
     const m = message[0]
 
     return (
-        <div className={m === "D" || m === "I" ? "errorRed" : "error"}>
+        <div className={m === "D" || m === "I" ? "errorRed" : "notification"}>
             {message}
         </div>
     )
