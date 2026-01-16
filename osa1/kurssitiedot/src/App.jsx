@@ -1,7 +1,6 @@
 const Header = (props) => <div><h1>{props.title}</h1></div>
 
 const Part = ({ names }) => {
-  console.log('Part props', names)
   return (
     <div>
       {names.map(n => 
@@ -19,14 +18,15 @@ const Content = ({ parts }) => {
   )
 }
 
-const Total = (props) => {
-  let sum = 0
-  const total = props.course.parts.forEach(v => {
-    sum += v.exercises
-  })
+const Total = ({ parts }) => {
+  const arrayOfExercises = parts.map(ex => ex.exercises)
+  const totalExercises = arrayOfExercises.reduce(
+    (acc, curr) => acc + curr,
+  )
+
   return (
     <div>
-      <p>Number of exercises {sum}</p>
+      <p>total of exercises {totalExercises}</p>
     </div>
   )
 }
@@ -37,6 +37,7 @@ const Course = ({ course }) => {
     <div>
       <Header title={course.name}/>
       <Content parts={course.parts}/>
+      <Total parts={course.parts}/>
     </div>
   )
 }
