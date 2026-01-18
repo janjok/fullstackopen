@@ -1,4 +1,4 @@
-import axios from 'axios'
+import personService from '../services/persons'
 
 const Personform = ( {newName, setNewName, newNumber, setNewNumber, persons, setPersons} ) => {
   const addPerson = (event) => {
@@ -11,8 +11,8 @@ const Personform = ( {newName, setNewName, newNumber, setNewNumber, persons, set
     const checkName = per => per.name === newName
     persons.some(checkName)
     ? alert(`${newName} is already added to phonebook`)
-    : axios
-        .post('http://localhost:3001/persons', newPerson)
+    : personService
+        .create(newPerson)
         .then(response => {
           setPersons(persons.concat(response.data))
         })
