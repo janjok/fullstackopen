@@ -18,6 +18,16 @@ const App = () => {
       })
   }, [])
 
+  const removePerson = (id, name) => {
+    const result = confirm(`Delete ${name}?`)
+    if(result){
+      personService.remove(id)
+      .then(p => {
+        setPersons(persons.filter(p => p.id !== id))
+      })
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -26,7 +36,7 @@ const App = () => {
       newNumber={newNumber} setNewNumber={setNewNumber}
       persons={persons} setPersons={setPersons}/>
       <h2>Numbers</h2>
-      <Phonebook persons={persons} filter={filter}/>
+      <Phonebook persons={persons} filter={filter} remove={removePerson}/>
     </div>
     
   )
