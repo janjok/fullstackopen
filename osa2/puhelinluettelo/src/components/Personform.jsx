@@ -9,8 +9,9 @@ const Personform = ( {newName, setNewName, newNumber, setNewNumber, persons, set
     }
 
     const checkName = per => per.name === newName
+
     persons.some(checkName)
-    ? alert(`${newName} is already added to phonebook`)
+    ? changeNumber(newName)
     : personService
         .create(newPerson)
         .then(response => {
@@ -19,6 +20,22 @@ const Personform = ( {newName, setNewName, newNumber, setNewNumber, persons, set
 
     setNewName('')
     setNewNumber('')
+  }
+
+  const changeNumber = (name) => {
+    const result = (`${name} is already added to phonebook,
+      replace the old number with a new one?`)
+
+    if(confirm(result)){
+      const oldPerson = persons.find((per) => per.name === name)
+      const updateOld = {...oldPerson, number: newNumber}
+
+      personService
+        .update(updateOld.id, updateOld)
+        .then(response => {
+          setPersons(persons.map(p => p.id === updateOld.id ? updateOld : p))
+        })
+    }
   }
 
   const handleNameChange = (event) => setNewName(event.target.value)
