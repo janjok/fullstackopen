@@ -1,6 +1,6 @@
 import personService from '../services/persons'
 
-const Personform = ( {newName, setNewName, newNumber, setNewNumber, persons, setPersons} ) => {
+const Personform = ( {newName, setNewName, newNumber, setNewNumber, persons, setPersons, setMessage, setMessageColor} ) => {
   const addPerson = (event) => {
     event.preventDefault()
     const newPerson = {
@@ -16,6 +16,12 @@ const Personform = ( {newName, setNewName, newNumber, setNewNumber, persons, set
         .create(newPerson)
         .then(response => {
           setPersons(persons.concat(response.data))
+          setMessage(`${newName} has been added to phonebook`)
+          setMessageColor('green')
+          setTimeout(() => {
+            setMessage(null)
+            setMessageColor(null)
+          }, 3000)
         })
 
     setNewName('')
@@ -34,6 +40,12 @@ const Personform = ( {newName, setNewName, newNumber, setNewNumber, persons, set
         .update(updateOld.id, updateOld)
         .then(response => {
           setPersons(persons.map(p => p.id === updateOld.id ? updateOld : p))
+          setMessage(`Number for ${updateOld.name} has been updated`)
+          setMessageColor('green')
+          setTimeout(() => {
+            setMessage(null)
+            setMessageColor(null)
+          }, 3000)
         })
     }
   }
