@@ -18,14 +18,18 @@ const Personform = ( {newName, setNewName, newNumber, setNewNumber, persons, set
           setPersons(persons.concat(response.data))
           setMessage(`${newName} has been added to phonebook`)
           setMessageColor('green')
-          setTimeout(() => {
-            setMessage(null)
-            setMessageColor(null)
-          }, 3000)
+          messageUpdater()
         })
 
     setNewName('')
     setNewNumber('')
+  }
+
+  const messageUpdater = () => {
+    setTimeout(() => {
+            setMessage(null)
+            setMessageColor(null)
+          }, 3000)
   }
 
   const changeNumber = (name) => {
@@ -42,10 +46,14 @@ const Personform = ( {newName, setNewName, newNumber, setNewNumber, persons, set
           setPersons(persons.map(p => p.id === updateOld.id ? updateOld : p))
           setMessage(`Number for ${updateOld.name} has been updated`)
           setMessageColor('green')
-          setTimeout(() => {
-            setMessage(null)
-            setMessageColor(null)
-          }, 3000)
+          messageUpdater()
+        })
+        .catch(error => {
+          setMessage(`${name} has already been removed from server`)
+          setMessageColor('red')
+          messageUpdater()
+          console.log(updateOld)
+          setPersons(persons.filter(p => p.id !== updateOld.id))
         })
     }
   }
