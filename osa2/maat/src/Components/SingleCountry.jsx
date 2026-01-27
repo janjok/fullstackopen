@@ -7,7 +7,7 @@ const SingleCountry = ({ single }) => {
       <h2>Languages</h2>
       <ul>
       {Object.values(single[0].languages).map(lang => 
-        <li>{lang}</li>
+        <li key={lang}>{lang}</li>
       )}
       </ul>
       <img src={single[0].flags.svg} width={250} height={250}/>

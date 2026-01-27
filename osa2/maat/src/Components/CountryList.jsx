@@ -1,6 +1,6 @@
 import SingleCountry from './SingleCountry'
 
-const CountryList = ({ country, countries }) => {
+const CountryList = ({ country, countries, setCountry }) => {
 
   const listOfNames = countries.filter(c =>c.name.common.toLowerCase().includes(country.toLowerCase()))
 
@@ -12,12 +12,14 @@ const CountryList = ({ country, countries }) => {
     return(
       <div>
         {listOfNames.map(c => 
-          <p key={c.name.common}>{c.name.common}</p>
+          <p key={c.name.common}>{c.name.common}
+          <button onClick={() => setCountry(c.name.common)}>Show</button>
+          </p>
         )}
       </div>
     )
-  } else {
-    return <SingleCountry single={listOfNames}/>
+  } else if(listOfNames.length === 1){
+    return <SingleCountry single={listOfNames}  />
   }
 }
 
